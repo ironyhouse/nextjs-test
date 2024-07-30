@@ -1,4 +1,7 @@
 import { Props, Article } from '@/app/types';
+import ArticleCard from '@/components/ArticleCard/ArticleCard';
+import { Button } from '@/components/ui/button';
+import Link from 'next/link';
 
 // Incremental Static Regeneration (ISR)
 // Use https://newsapi.org API to fetch news data by category.
@@ -14,13 +17,15 @@ const CATEGORIES = [
   'technology',
 ];
 
-const BASE_URL = 'https://newsapi.org/v2/top-headlines';
-
 const getNewsByCategory = async (category: string) => {
-  console.log(`Fetching news for category: ${category} at ${new Date().toISOString()}`);
+  console.log(
+    `Fetching news for category: ${category} at ${new Date().toISOString()}`
+  );
 
   try {
-    const response = await fetch(`${BASE_URL}?country=us&category=${category}&apiKey=${process.env.ISR_NEWS_API_KEY}`);
+    const response = await fetch(
+      `${process.env.ISR_BASE_URL}?country=us&category=${category}&apiKey=${process.env.ISR_NEWS_API_KEY}`
+    );
 
     if (!response.ok) {
       throw new Error(
@@ -33,6 +38,7 @@ const getNewsByCategory = async (category: string) => {
     return data;
   } catch (error) {
     console.error('Error fetching news:', error);
+    return null;
   }
 };
 
@@ -55,22 +61,28 @@ export default async function NewsPage(props: {
   params: { category: string };
   searchParams: Props;
 }) {
-  const category = props.params?.category || CATEGORIES[0];
+  const category = props.params?.category;
 
   const articles = await getNewsByCategory(category);
 
-  if (!articles) return <div>Error loading articles. Please try again later.</div>;
+  if (!articles)
+    return <div>Error loading articles. Please try again later.</div>;
 
   return (
-    <div>
-      <h1>News Articles in {category.charAt(0).toUpperCase() + category.slice(1)}</h1>
+    <div className="flex flex-col gap-4 p-4">
+      <Button className="w-auto">
+        <Link className="w-full" href="/">
+          Home
+        </Link>
+      </Button>
+      <h1>
+        News Articles in {category.charAt(0).toUpperCase() + category.slice(1)}
+      </h1>
+
       <ul>
         {articles.map((article, index) => (
           <li key={index}>
-            <h2>{article.title}</h2>
-            <p>{article.description}</p>
-            {/* {article.urlToImage && <img src={article.urlToImage} alt={article.title} />} */}
-            <p>{article.author}</p>
+            <ArticleCard {...article} />
           </li>
         ))}
       </ul>

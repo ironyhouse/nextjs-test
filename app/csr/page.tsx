@@ -55,7 +55,7 @@ export default function PokemonPage(props: Props) {
   return (
     <div className="flex flex-col gap-4 p-4">
       <Button className="w-auto">
-        <Link className="w-[auto]" href="/">
+        <Link className="w-full" href="/">
           Home
         </Link>
       </Button>

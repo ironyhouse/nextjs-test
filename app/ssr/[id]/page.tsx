@@ -7,8 +7,6 @@ import { Button } from '@/components/ui/button';
 // Server-Side Rendering (SSR)
 // Use SWAPI (https://swapi.dev) to fetch character data by ID.
 
-const BASE_URL = 'https://swapi.dev/api/people';
-
 // Simple SSR component implementation without extra logic
 
 // Next.js automatically caches the returned values of fetch
@@ -22,12 +20,13 @@ const getCharacterById = async (id: string) => {
   );
 
   try {
-    const response = await fetch(`${BASE_URL}/${id}`);
+    const response = await fetch(`${process.env.SSR_BASE_URL}/${id}`);
 
     const data: Character = await response.json();
     return data;
   } catch (error) {
     console.error('Error fetching character:', error);
+    return null;
   }
 };
 
@@ -44,7 +43,7 @@ export default async function CharacterPage(props: {
   return (
     <div className="flex flex-col gap-4 p-4">
       <Button className='w-auto'>
-        <Link className='w-[auto]' href="/">Home</Link>
+        <Link className='w-full' href="/">Home</Link>
       </Button>
 
       <Card className="flex flex-col gap-4 p-4 shadow-md">
