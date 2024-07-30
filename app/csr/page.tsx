@@ -6,8 +6,9 @@
 
 import { useState, useEffect } from 'react';
 import { Pokemon, Props } from '@/app/types/index';
-import Image from 'next/image';
 import Link from 'next/link';
+import PokemonCard from '@/components/PokemonCard/PokemonCard';
+import { Button } from '@/components/ui/button';
 
 export default function PokemonPage(props: Props) {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
@@ -52,22 +53,15 @@ export default function PokemonPage(props: Props) {
   if (error) return <div>Error: {error}</div>;
 
   return (
-    <div>
-      <Link href="/">Home</Link>
+    <div className="flex flex-col gap-4 p-4">
+      <Button className="w-auto">
+        <Link className="w-[auto]" href="/">
+          Home
+        </Link>
+      </Button>
       <h1>Client-Side Rendering (CSR)</h1>
 
-      {pokemon && (
-        <div>
-          <h2>{pokemon.name}</h2>
-          <Image
-            src={pokemon.sprites.front_default}
-            alt={pokemon.name}
-            height={100}
-            width={100}
-            className="w-[200px] h-[200px]"
-          />
-        </div>
-      )}
+      {pokemon && <PokemonCard pokemon={pokemon} />}
     </div>
   );
 }
