@@ -1,4 +1,5 @@
 "use client"
+import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 
 export default function Error({
@@ -16,8 +17,8 @@ export default function Error({
 	return (
 		<div className="w-f h-full flex flex-col items-center justify-top p-4">
 			<h2>Something went wrong! </h2>
-			<button className="mt-4" onClick={() => reset()}>Try again</button>
-			<button onClick={() => router.replace('/')} >Home</button>
+			<Button className="m-4" onClick={() => reset()}>Try again</Button>
+			<Button onClick={() => router.replace('/')} >Home</Button>
 		</div>
 	)
 }
