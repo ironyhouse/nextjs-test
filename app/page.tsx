@@ -44,7 +44,7 @@ export default function Home() {
           </Link>
 
           <input
-            type="text"
+            type="number"
             placeholder="Character ID"
             onChange={(e) => setCharacterId(e.target.value)}
             value={characterId}
@@ -59,7 +59,7 @@ export default function Home() {
           </Link>
 
           <input
-            type="text"
+            type="number"
             placeholder="Post ID"
             onChange={(e) => setId(e.target.value)}
             value={id}

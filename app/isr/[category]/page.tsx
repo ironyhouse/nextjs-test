@@ -66,7 +66,7 @@ export default async function NewsPage(props: {
   const articles = await getNewsByCategory(category);
 
   if (!articles)
-    return <div>Error loading articles. Please try again later.</div>;
+    return <div>Error loading articles. Please provide a correct category.</div>;
 
   return (
     <div className="flex flex-col gap-4 p-4">

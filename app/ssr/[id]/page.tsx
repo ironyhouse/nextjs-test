@@ -22,6 +22,12 @@ const getCharacterById = async (id: string) => {
   try {
     const response = await fetch(`${process.env.SSR_BASE_URL}/${id}`);
 
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch character data! Status: ${response.status}, StatusText: ${response.statusText}`
+      );
+    }
+
     const data: Character = await response.json();
     return data;
   } catch (error) {
@@ -38,7 +44,7 @@ export default async function CharacterPage(props: {
 
   const character = await getCharacterById(id);
 
-  if (!character) return null;
+  if (!character) return <div>Error loading person. Please provide a correct person ID.</div>;
 
   return (
     <div className="flex flex-col gap-4 p-4">

@@ -11,6 +11,12 @@ const getPostById = async (id: string) => {
   try {
     const response = await fetch(`${process.env.SSG_BASE_URL}/${id}`);
 
+    if (!response.ok) {
+      throw new Error(
+        `Failed to fetch post data! Status: ${response.status}, StatusText: ${response.statusText}`
+      );
+    }
+
     const data: Post = await response.json();
     return data;
   } catch (error) {
@@ -44,7 +50,7 @@ export default async function PostPage(props: {
 
   const post = await getPostById(id);
 
-  if (!post) return <div>Error loading post. Please try again later.</div>;
+  if (!post) return <div>Error loading post. Please provide a correct post ID.</div>;
 
   return (
     <div className="flex flex-col gap-4 p-4">
