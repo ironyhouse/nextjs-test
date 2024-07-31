@@ -1,4 +1,4 @@
-
+import dynamic from 'next/dynamic';
 import { Pokemon } from '@/app/types/index';
 import Image from 'next/image';
 
@@ -6,7 +6,7 @@ type PokemonDetailsProps = {
   pokemon: Pokemon;
 };
 
-const PokemonCard = ({ pokemon }: PokemonDetailsProps) => {
+export const PokemonCard = ({ pokemon }: PokemonDetailsProps) => {
   return (
     <div>
       <h2>{pokemon.name}</h2>
@@ -21,4 +21,10 @@ const PokemonCard = ({ pokemon }: PokemonDetailsProps) => {
   );
 };
 
-export default PokemonCard;
+export default dynamic(
+  () =>
+    import('@/components/PokemonCard/PokemonCard').then(
+      (mod) => mod.PokemonCard
+    ),
+  { ssr: false }
+);

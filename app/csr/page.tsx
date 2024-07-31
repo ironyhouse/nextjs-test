@@ -4,13 +4,21 @@
 // Use the PokeAPI (https://pokeapi.co) to fetch Pokemon data by name.
 // create an API endpoint to fetch Pokemon data by name there.
 
+import dynamic from 'next/dynamic';
 import { useState, useEffect } from 'react';
 import { Pokemon, Props } from '@/app/types/index';
 import Link from 'next/link';
-import PokemonCard from '@/components/PokemonCard/PokemonCard';
 import { Button } from '@/components/ui/button';
 
-export default function PokemonPage(props: Props) {
+const PokemonCard = dynamic(
+  () =>
+    import('@/components/PokemonCard/PokemonCard').then(
+      (mod) => mod.PokemonCard
+    ),
+  { ssr: false }
+);
+
+export const PokemonPage = (props: Props) => {
   const [pokemon, setPokemon] = useState<Pokemon | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
@@ -64,4 +72,9 @@ export default function PokemonPage(props: Props) {
       {pokemon && <PokemonCard pokemon={pokemon} />}
     </div>
   );
-}
+};
+
+export default dynamic(
+  () => import('@/app/csr/page').then((mod) => mod.PokemonPage),
+  { ssr: false }
+);
