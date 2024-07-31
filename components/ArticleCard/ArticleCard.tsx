@@ -1,5 +1,5 @@
-import { Article } from '@/app/types';
-import Image from 'next/image';
+import { Article } from "@/app/types";
+import Image from "next/image";
 
 const ArticleCard = ({
   title,
@@ -15,12 +15,7 @@ const ArticleCard = ({
       <h2>{title}</h2>
       <p>{description}</p>
       {urlToImage && (
-        <Image
-          src={urlToImage}
-          alt={title}
-          width={600}
-          height={400}
-        />
+        <Image src={urlToImage} alt={title} width={600} height={400} />
       )}
       <p>{content}</p>
     </article>

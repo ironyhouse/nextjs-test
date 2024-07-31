@@ -1,6 +1,6 @@
-import Link from 'next/link';
-import { Props, Post } from '@/app/types';
-import { Button } from '@/components/ui/button';
+import Link from "next/link";
+import { Props, Post } from "@/app/types";
+import { Button } from "@/components/ui/button";
 
 // Static Site Generation (SSG)
 // Use https://jsonplaceholder.typicode.com API to fetch post data by ID.
@@ -13,14 +13,14 @@ const getPostById = async (id: string) => {
 
     if (!response.ok) {
       throw new Error(
-        `Failed to fetch post data! Status: ${response.status}, StatusText: ${response.statusText}`
+        `Failed to fetch post data! Status: ${response.status}, StatusText: ${response.statusText}`,
       );
     }
 
     const data: Post = await response.json();
     return data;
   } catch (error) {
-    console.error('Error fetching Post:', error);
+    console.error("Error fetching Post:", error);
     return null;
   }
 };
@@ -38,7 +38,7 @@ export async function generateStaticParams() {
   // So as a workaround we will select the last 10 posts from the array
   const lastPosts = posts.slice(-10);
 
-  const paths = lastPosts.map((post) => ({ id: post.id.toString() }));
+  const paths = lastPosts.map(post => ({ id: post.id.toString() }));
   return paths;
 }
 
@@ -50,12 +50,15 @@ export default async function PostPage(props: {
 
   const post = await getPostById(id);
 
-  if (!post) return <div>Error loading post. Please provide a correct post ID.</div>;
+  if (!post)
+    return <div>Error loading post. Please provide a correct post ID.</div>;
 
   return (
     <div className="flex flex-col gap-4 p-4">
-      <Button className='w-auto'>
-        <Link className='w-full' href="/">Home</Link>
+      <Button className="w-auto">
+        <Link className="w-full" href="/">
+          Home
+        </Link>
       </Button>
       <h1>SSG</h1>
 

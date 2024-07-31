@@ -40,4 +40,4 @@ export type Props = {
   searchParams?: {
     [key: string]: string | string[] | undefined;
   };
-}
+};

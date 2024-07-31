@@ -1,6 +1,6 @@
-import dynamic from 'next/dynamic';
-import { Pokemon } from '@/app/types/index';
-import Image from 'next/image';
+import dynamic from "next/dynamic";
+import { Pokemon } from "@/app/types/index";
+import Image from "next/image";
 
 type PokemonDetailsProps = {
   pokemon: Pokemon;
@@ -23,8 +23,6 @@ export const PokemonCard = ({ pokemon }: PokemonDetailsProps) => {
 
 export default dynamic(
   () =>
-    import('@/components/PokemonCard/PokemonCard').then(
-      (mod) => mod.PokemonCard
-    ),
-  { ssr: false }
+    import("@/components/PokemonCard/PokemonCard").then(mod => mod.PokemonCard),
+  { ssr: false },
 );

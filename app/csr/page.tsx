@@ -1,21 +1,19 @@
-'use client';
+"use client";
 
 // Client-Side Rendering (CSR)
 // Use the PokeAPI (https://pokeapi.co) to fetch Pokemon data by name.
 // create an API endpoint to fetch Pokemon data by name there.
 
-import dynamic from 'next/dynamic';
-import { useState, useEffect } from 'react';
-import { Pokemon, Props } from '@/app/types/index';
-import Link from 'next/link';
-import { Button } from '@/components/ui/button';
+import dynamic from "next/dynamic";
+import { useState, useEffect } from "react";
+import { Pokemon, Props } from "@/app/types/index";
+import Link from "next/link";
+import { Button } from "@/components/ui/button";
 
 const PokemonCard = dynamic(
   () =>
-    import('@/components/PokemonCard/PokemonCard').then(
-      (mod) => mod.PokemonCard
-    ),
-  { ssr: false }
+    import("@/components/PokemonCard/PokemonCard").then(mod => mod.PokemonCard),
+  { ssr: false },
 );
 
 export const PokemonPage = (props: Props) => {
@@ -35,7 +33,7 @@ export const PokemonPage = (props: Props) => {
       const response = await fetch(`/api/pokemon?name=${name.toLowerCase()}`);
 
       if (!response.ok) {
-        throw new Error('Pokemon not found');
+        throw new Error("Pokemon not found");
       }
 
       const data: Pokemon = await response.json();
@@ -75,6 +73,6 @@ export const PokemonPage = (props: Props) => {
 };
 
 export default dynamic(
-  () => import('@/app/csr/page').then((mod) => mod.PokemonPage),
-  { ssr: false }
+  () => import("@/app/csr/page").then(mod => mod.PokemonPage),
+  { ssr: false },
 );

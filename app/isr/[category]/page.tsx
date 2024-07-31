@@ -1,35 +1,35 @@
-import { Props, Article } from '@/app/types';
-import ArticleCard from '@/components/ArticleCard/ArticleCard';
-import { Button } from '@/components/ui/button';
-import Link from 'next/link';
+import { Props, Article } from "@/app/types";
+import ArticleCard from "@/components/ArticleCard/ArticleCard";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 // Incremental Static Regeneration (ISR)
 // Use https://newsapi.org API to fetch news data by category.
 // This API will require you to create an account to get an API key.
 
 const CATEGORIES = [
-  'business',
-  'entertainment',
-  'general',
-  'health',
-  'science',
-  'sports',
-  'technology',
+  "business",
+  "entertainment",
+  "general",
+  "health",
+  "science",
+  "sports",
+  "technology",
 ];
 
 const getNewsByCategory = async (category: string) => {
   console.log(
-    `Fetching news for category: ${category} at ${new Date().toISOString()}`
+    `Fetching news for category: ${category} at ${new Date().toISOString()}`,
   );
 
   try {
     const response = await fetch(
-      `${process.env.ISR_BASE_URL}?country=us&category=${category}&apiKey=${process.env.ISR_NEWS_API_KEY}`
+      `${process.env.ISR_BASE_URL}?country=us&category=${category}&apiKey=${process.env.ISR_NEWS_API_KEY}`,
     );
 
     if (!response.ok) {
       throw new Error(
-        `Error fetching news for category ${category}! Status: ${response.status}, StatusText: ${response.statusText}`
+        `Error fetching news for category ${category}! Status: ${response.status}, StatusText: ${response.statusText}`,
       );
     }
 
@@ -37,7 +37,7 @@ const getNewsByCategory = async (category: string) => {
 
     return data;
   } catch (error) {
-    console.error('Error fetching news:', error);
+    console.error("Error fetching news:", error);
     return null;
   }
 };
@@ -54,7 +54,7 @@ export const revalidate = 60;
 // Generate static parameters for categories
 // https://nextjs.org/docs/app/api-reference/functions/generate-static-params
 export async function generateStaticParams() {
-  return CATEGORIES.map((category) => ({ category }));
+  return CATEGORIES.map(category => ({ category }));
 }
 
 export default async function NewsPage(props: {
@@ -66,7 +66,9 @@ export default async function NewsPage(props: {
   const articles = await getNewsByCategory(category);
 
   if (!articles)
-    return <div>Error loading articles. Please provide a correct category.</div>;
+    return (
+      <div>Error loading articles. Please provide a correct category.</div>
+    );
 
   return (
     <div className="flex flex-col gap-4 p-4">

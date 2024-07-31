@@ -16,7 +16,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="Pokemon name"
-            onChange={(e) => setPokemonName(e.target.value)}
+            onChange={e => setPokemonName(e.target.value)}
             value={pokemonName}
             className="p-3 border border-black"
           />
@@ -31,7 +31,7 @@ export default function Home() {
           <input
             type="text"
             placeholder="News category"
-            onChange={(e) => setCategory(e.target.value)}
+            onChange={e => setCategory(e.target.value)}
             value={category}
             className="p-3 border border-black"
           />
@@ -46,7 +46,7 @@ export default function Home() {
           <input
             type="number"
             placeholder="Character ID"
-            onChange={(e) => setCharacterId(e.target.value)}
+            onChange={e => setCharacterId(e.target.value)}
             value={characterId}
             className="p-3 border border-black"
           />
@@ -61,7 +61,7 @@ export default function Home() {
           <input
             type="number"
             placeholder="Post ID"
-            onChange={(e) => setId(e.target.value)}
+            onChange={e => setId(e.target.value)}
             value={id}
             className="p-3 border border-black"
           />
